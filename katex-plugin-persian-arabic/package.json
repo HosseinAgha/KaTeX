@@ -1,0 +1,19 @@
+{
+  "name": "katex-plugin-persian-arabic",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "generateMetrics": "node generateFontMetrics.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fontkit": "^1.7.5"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}

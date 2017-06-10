@@ -58,7 +58,7 @@ const makeSymbol = function(value, fontFamily, mode, options, classes) {
         // TODO(emily): Figure out a good way to only print this in development
         typeof console !== "undefined" && console.warn(
             "No character metrics for '" + value + "' in style '" +
-                fontFamily + "'");
+                fontFamily + "'" + " char code is: " + value.charCodeAt(0));
         symbolNode = new domTree.symbolNode(value, 0, 0, 0, 0, classes);
     }
 
@@ -105,11 +105,16 @@ const mathDefault = function(value, mode, options, classes, type) {
         const font = symbols[mode][value] && symbols[mode][value].font;
         if (font === "ams") {
             return makeSymbol(
-                value, "AMS-Regular", mode, options, classes.concat(["amsrm"]));
-        } else { // if (font === "main") {
+                value, "AMS-Regular", mode, options,
+                classes.concat(["amsrm"]));
+        } else if (font === "main") {
             return makeSymbol(
                 value, "Main-Regular", mode, options,
                 classes.concat(["mathrm"]));
+        } else if (font === "easternArabic") {
+            return makeSymbol(
+                value, "Vazir-Code", mode, options,
+                classes.concat(["mathrm", "persianarabicrm"]));
         }
     } else {
         throw new Error("unexpected type: " + type + " in mathDefault");

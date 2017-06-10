@@ -39,6 +39,7 @@ const text = "text";
 // fonts:
 const main = "main";
 const ams = "ams";
+const easternArabic = "easternArabic";
 
 // groups:
 const accent = "accent";
@@ -622,6 +623,22 @@ const mathTextSymbols = "0123456789/@.\"";
 for (let i = 0; i < mathTextSymbols.length; i++) {
     const ch = mathTextSymbols.charAt(i);
     defineSymbol(math, main, textord, ch, ch);
+}
+
+// Add Eastern Arabic numerals as textords in math mode
+for (let i = 0; i <= 9; i++) {
+    // these are arabic-indic digits (Arabic numerals)
+    const arabicChar = String.fromCharCode(0x0660 + i);
+    defineSymbol(math, easternArabic, textord, arabicChar, arabicChar);
+    // these are extended arabic-indic digits (Persian numerals)
+    const persianChar = String.fromCharCode(0x06F0 + i);
+    defineSymbol(math, easternArabic, textord, persianChar, persianChar);
+}
+
+// Persian And Arabic characters as textords in text mode
+for (let i = 0x0600; i <= 0x06FF; i++) {
+    const ch = String.fromCharCode(i);
+    defineSymbol(text, easternArabic, textord, ch, ch);
 }
 
 // All of these are textords in text mode

@@ -1,7 +1,8 @@
 /* eslint no-unused-vars:0 */
 
 import Style from "./Style";
-import { cjkRegex } from "./unicodeRegexes";
+import { cjkRegex, persianArabicRegex } from "./unicodeRegexes";
+import getPersianFontMetrics from "../katex-plugin-persian-arabic/getFontMetrics.js";
 
 /**
  * This file contains metrics regarding fonts and individual symbols. The sigma
@@ -259,7 +260,9 @@ const getCharacterMetrics = function(character, style) {
     } else if (cjkRegex.test(character[0])) {
         ch = 'M'.charCodeAt(0);
     }
-    const metrics = metricMap[style][ch];
+    // this extends existing font metrics with the persian and arabic metrics
+    const extendedMetricsMap = Object.assign(getPersianFontMetrics(style), metricMap);
+    const metrics = extendedMetricsMap[style][ch];
     if (metrics) {
         return {
             depth: metrics[0],
