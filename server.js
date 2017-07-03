@@ -49,16 +49,12 @@ function browserified(url, file, standaloneName) {
     app.get(url, serveBrowserified(file, standaloneName));
 }
 
-function use(url, handler) {
-    app.use(url, handler);
-}
-
 function static(url, file) {
-    use(url, express.static(path.join(__dirname, file)));
+    app.use(url, express.static(path.join(__dirname, file)));
 }
 
 browserified("/katex.js", "katex", "katex");
-use("/test/jasmine", express.static(path.dirname(
+app.use("/test/jasmine", express.static(path.dirname(
     require.resolve("jasmine-core/lib/jasmine-core/jasmine.js"))));
 browserified("/test/katex-spec.js", "test/*[Ss]pec.js");
 browserified(
@@ -66,7 +62,7 @@ browserified(
     "contrib/auto-render/auto-render",
     "renderMathInElement");
 
-use("/katex.css", function(req, res, next) {
+app.use("/katex.css", function(req, res, next) {
     const lessfile = path.join(__dirname, "static", "katex.less");
     fs.readFile(lessfile, {encoding: "utf8"}, function(err, data) {
         if (err) {
