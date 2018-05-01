@@ -74,7 +74,7 @@
     "analyze": "webpack --config webpack.analyze.js",
     "build": "npm run prestart && rimraf build/* && webpack",
     "watch": "npm run build -- --watch",
-    "prepublish": "npm run dist",
+    "prepare": "npm run dist",
     "dist": "npm test && npm run build && npm run dist:copy && npm run dist:zip && npm run dist:dist",
     "dist:copy": "cd build && mkdirp katex && cp -r katex.js katex.min.js katex.css katex.min.css contrib fonts ../README.md katex",
     "dist:zip": "cd build && tar czf katex.tar.gz katex/ && zip -rq katex.zip katex/",
